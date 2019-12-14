@@ -134,7 +134,7 @@ void InvertedIndex::show_files()
 void InvertedIndex::search()
 {
   string words;
-  cout<<"Enter Word: \n";
+  cout<<"Enter Keywords: \n";
   cin.ignore();
   getline(cin, words);
   cout<<words<<endl;
@@ -144,7 +144,7 @@ void InvertedIndex::search()
   {
     cout<<word<<endl;
     if(dictionary.find(word)==dictionary.end()){
-      cout<<"No instance exist\n";
+      //cout<<"No instance exist\n";
       continue;
     }
     int size = (int)dictionary[word].size();
@@ -169,17 +169,15 @@ void InvertedIndex::search()
 void InvertedIndex::search2()
 {
   string words;
-  cout<<"Enter Word: \n";
+  cout<<"Enter Keywords: \n";
   cin.ignore();
   getline(cin, words);
-  cout<<words<<endl;
   stringstream s(words);
   string word;
   while(s>>word)
   {
-    cout<<word<<endl;
     if(dictionary2.find(word)==dictionary2.end()){
-      cout<<"No instance exist\n";
+      //cout<<"No instance exist\n";
       continue;
     }
     int size = (int)dictionary2[word].size();
@@ -190,12 +188,14 @@ void InvertedIndex::search2()
           else{ similarity[i.first]++;}
     }
   }
+  cout<<endl<<"Top 10 results: "<<endl;
   //cout<<similarity.size()<<endl;
   // for (auto it = similarity.begin(); it != similarity.end(); ++it) {
   //   cout<<it->first<<": "<<it->second<<endl;
   // }
 }
   
+// Priority queue 
 void InvertedIndex::top1(){
   priority_queue<pair<string, int>,vector<pair<string, int> >,compare> pq;
   int k= similarity.size()<10?similarity.size():10;
@@ -212,6 +212,7 @@ void InvertedIndex::top1(){
     }
   }
 
+  // Nlog N method
   //for(auto t : similarity) pq.push(make_pair(t.first, t.second));
   vector<string> res;
   for(int i = 0 ; i < k ; i++){
@@ -228,6 +229,7 @@ void InvertedIndex::top1(){
   similarity.clear();
 }
 
+// Bucket sort O(N)
 void InvertedIndex::top2(){
   int length=10;
   vector<string> bucket[length];
@@ -274,12 +276,12 @@ int main(int argc, char*argv[])
         cout<<"Enter File Name: ";
         string name;
         cin>>name;
-        double startt1 = clock(); 
-        Data.addfile(name);
+        // double startt1 = clock(); 
+        // Data.addfile(name);
         
-        double endt1 = clock();
-        double TT1 = (double)(endt1-startt1)/CLOCKS_PER_SEC;
-        printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT1);
+        // double endt1 = clock();
+        // double TT1 = (double)(endt1-startt1)/CLOCKS_PER_SEC;
+        // printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT1);
         double startt11 = clock(); 
         Data.addfile2(name);
         double endt11 = clock();
@@ -287,24 +289,23 @@ int main(int argc, char*argv[])
         printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT11);
         break;
       }
-
       case 3:
       {
-        double startt = clock(); 
-        Data.search();
-        Data.top1();
-        double endt = clock();
-        double TT2 = (double)(endt-startt)/CLOCKS_PER_SEC;
-        printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT2);
-        cout<<"next round"<<endl;
-        double startt3 = clock(); 
-        Data.search2();
-        Data.top1();
-        double endt3 = clock();
-        double TT3 = (double)(endt3-startt3)/CLOCKS_PER_SEC;
-        printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT3);
+        // double startt = clock(); 
+        // Data.search();
+        // Data.top1();
+        // double endt = clock();
+        // double TT2 = (double)(endt-startt)/CLOCKS_PER_SEC;
+        // printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT2);
+        // cout<<"next round"<<endl;
+        // double startt3 = clock(); 
+        // Data.search2();
+        // Data.top1();
+        // double endt3 = clock();
+        // double TT3 = (double)(endt3-startt3)/CLOCKS_PER_SEC;
+        // printf("FINISHED --- TOTAL CPU TIME %f SECS \n",(float)TT3);
 
-        cout<<"next round"<<endl;
+        // cout<<"next round"<<endl;
         double startt4 = clock(); 
         Data.search2();
         Data.top2();
