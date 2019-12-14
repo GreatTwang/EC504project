@@ -1,4 +1,4 @@
-# EC504project
+# EC504project: Twitter Keyword Search
 ## Make
 First, use `make -k` to make. The executable file is named *search*.
 
